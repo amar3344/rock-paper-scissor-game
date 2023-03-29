@@ -1,0 +1,10 @@
+.game-images {
+  width: 135px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.each-button {
+  background-color: transparent;
+  border: none;
+}
