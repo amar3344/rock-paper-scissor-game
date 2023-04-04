@@ -28,69 +28,129 @@ const App = () => {
   const [isRunning, setRunning] = useState(true)
   const [gameStatus, setGameStatus] = useState('')
   const randomOption = Math.ceil(Math.random() * choicesList.length) - 1
-  const computerChoice = choicesList[randomOption].id
+  const computerChoice = choicesList[randomOption]
+  console.log(randomOption)
+  console.log(computerChoice)
 
   const getWinningCard = () => {
     setGameStatus('You Win')
-    setRunning(false)
   }
 
   const getLoseCard = () => {
     setGameStatus('You Lose')
-    setRunning(false)
   }
 
   const getDrawCard = () => {
     setGameStatus('Draw')
-    setRunning(false)
   }
 
-  const getGameResults = () => {
-    if (currentChoice === 'ROCK') {
-      if (computerChoice === 'SCISSORS') {
-        getWinningCard()
-      } else if (computerChoice === 'PAPER') {
-        getLoseCard()
-      } else {
-        getDrawCard()
-      }
-    } else if (currentChoice === 'PAPER') {
-      if (computerChoice === 'SCISSORS') {
-        getLoseCard()
-      } else if (computerChoice === 'PAPER') {
-        getDrawCard()
-      } else {
-        getLoseCard()
-      }
-    } else if (currentChoice === 'SCISSORS') {
-      if (computerChoice === 'SCISSORS') {
-        getDrawCard()
-      } else if (computerChoice === 'PAPER') {
-        getWinningCard()
-      } else {
-        getLoseCard()
-      }
+  //   const getGameResults = () => {
+  //     switch (currentChoice === 'ROCK') {
+  //       case choicesList[0].id:
+  //         return getDrawCard()
+  //       case choicesList[1].id:
+  //         return getLoseCard()
+  //       case choicesList[2].id:
+  //         return getWinningCard()
+
+  //       default:
+  //         return null
+  //     }
+
+  //     // if (currentChoice === 'ROCK') {
+  //     //   if (computerChoice === 'SCISSORS') {
+  //     //     getWinningCard()
+  //     //   } else if (computerChoice === 'PAPER') {
+  //     //     getLoseCard()
+  //     //   } else {
+  //     //     getDrawCard()
+  //     //   }
+  //     // } else if (currentChoice === 'PAPER') {
+  //     //   if (computerChoice === 'SCISSORS') {
+  //     //     getLoseCard()
+  //     //   } else if (computerChoice === 'PAPER') {
+  //     //     getDrawCard()
+  //     //   } else {
+  //     //     getLoseCard()
+  //     //   }
+  //     // } else if (currentChoice === 'SCISSORS') {
+  //     //   if (computerChoice === 'SCISSORS') {
+  //     //     getDrawCard()
+  //     //   } else if (computerChoice === 'PAPER') {
+  //     //     getWinningCard()
+  //     //   } else {
+  //     //     getLoseCard()
+  //     //   }
+  //     // }
+
+  //     // if (currentChoice === 'SCISSORS' && computerChoice === 'ROCK') {
+  //     //   getLoseCard()
+  //     // } else if (currentChoice === 'SCISSORS' && computerChoice === 'PAPER') {
+  //     //   getWinningCard()
+  //     // } else if (currentChoice === 'SCISSORS' && computerChoice === 'SCISSORS') {
+  //     //   getDrawCard()
+  //     // }
+  //     // if (currentChoice === 'PAPER' && computerChoice === 'SCISSORS') {
+  //     //   getLoseCard()
+  //     // } else if (currentChoice === 'PAPER' && computerChoice === 'PAPER') {
+  //     //   getDrawCard()
+  //     // } else if (currentChoice === 'PAPER' && computerChoice === 'ROCK') {
+  //     //   getWinningCard()
+  //     // }
+  //   }
+
+  const getResultsFromRock = () => {
+    switch (computerChoice.id) {
+      case choicesList[0].id:
+        return getDrawCard()
+      case choicesList[1].id:
+        return getLoseCard()
+      case choicesList[2].id:
+        return getWinningCard()
+
+      default:
+        return null
     }
-
-    // if (currentChoice === 'SCISSORS' && computerChoice === 'ROCK') {
-    //   getLoseCard()
-    // } else if (currentChoice === 'SCISSORS' && computerChoice === 'PAPER') {
-    //   getWinningCard()
-    // } else if (currentChoice === 'SCISSORS' && computerChoice === 'SCISSORS') {
-    //   getDrawCard()
-    // }
-    // if (currentChoice === 'PAPER' && computerChoice === 'SCISSORS') {
-    //   getLoseCard()
-    // } else if (currentChoice === 'PAPER' && computerChoice === 'PAPER') {
-    //   getDrawCard()
-    // } else if (currentChoice === 'PAPER' && computerChoice === 'ROCK') {
-    //   getWinningCard()
-    // }
   }
+
+  const getResultsFromScissors = () => {
+    switch (computerChoice.id) {
+      case choicesList[0].id:
+        return getWinningCard()
+      case choicesList[1].id:
+        return getDrawCard()
+      case choicesList[2].id:
+        return getLoseCard()
+
+      default:
+        return null
+    }
+  }
+  const getResultsFromPaper = () => {
+    switch (computerChoice.id) {
+      case choicesList[0].id:
+        return getLoseCard()
+      case choicesList[1].id:
+        return getWinningCard()
+      case choicesList[2].id:
+        return getDrawCard()
+
+      default:
+        return null
+    }
+  }
+
+  const getResult = () => (
+    <>
+      {currentChoice === choicesList[0].id && getResultsFromRock()}
+      {currentChoice === choicesList[1].id && getResultsFromScissors()}
+      {currentChoice === choicesList[2].id && getResultsFromPaper()}
+    </>
+  )
 
   const getByResultsById = id => {
     setCurrentChoice(id)
-    getGameResults(id)
+    getResult()
   }
 
   const getBackToTheGame = () => setRunning(true)
@@ -100,9 +160,9 @@ const App = () => {
       eachItem => eachItem.id === currentChoice,
     )
 
-    const opponentObject = choicesList[randomOption]
-    // console.log(currentObject[0].imageUrl)
-    // console.log(opponentObject.imageUrl)
+    console.log(randomOption)
+    console.log(computerChoice)
+    console.log(computerChoice.imageUrl)
 
     return (
       <>
@@ -110,11 +170,19 @@ const App = () => {
         <ul className="images-container">
           <li className="each-list-image">
             <p>your choice</p>
-            <img src={currentObject[0].imageUrl} alt="" width={120} />
+            <img
+              src={currentObject[0].imageUrl}
+              alt={currentObject.id}
+              width={120}
+            />
           </li>
           <li className="each-list-image">
             <p>opponent choice</p>
-            <img src={opponentObject.imageUrl} alt="" width={120} />
+            <img
+              src={computerChoice.imageUrl}
+              alt={computerChoice.id}
+              width={120}
+            />
           </li>
         </ul>
         <button type="button" onClick={getBackToTheGame}>
@@ -131,6 +199,7 @@ const App = () => {
           key={eachItem.id}
           details={eachItem}
           gameResults={getByResultsById}
+          gameRunningStatus={setRunning}
         />
       ))}
     </ul>

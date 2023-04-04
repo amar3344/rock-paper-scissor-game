@@ -1,10 +1,11 @@
 import './index.css'
 
 const GameImages = props => {
-  const {details, gameResults} = props
+  const {details, gameResults, gameRunningStatus} = props
 
   const getGameResultsById = () => {
     gameResults(details.id)
+    gameRunningStatus(false)
   }
 
   return (
