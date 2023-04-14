@@ -12,7 +12,7 @@ const GameImages = props => {
     <li>
       <button
         type="button"
-        data-testid={details.id}
+        data-testid="button"
         onClick={getGameResultsById}
         className="each-button"
       >

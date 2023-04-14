@@ -27,10 +27,8 @@ const App = () => {
   const [currentChoice, setCurrentChoice] = useState('')
   const [isRunning, setRunning] = useState(true)
   const [gameStatus, setGameStatus] = useState('')
-  const randomOption = Math.ceil(Math.random() * choicesList.length) - 1
+  const randomOption = Math.floor(Math.random() * choicesList.length)
   const computerChoice = choicesList[randomOption]
-  console.log(randomOption)
-  console.log(computerChoice)
 
   const getWinningCard = () => {
     setGameStatus('You Win')
@@ -162,6 +160,7 @@ const App = () => {
 
     console.log(randomOption)
     console.log(computerChoice)
+    console.log(currentObject[0].imageUrl)
     console.log(computerChoice.imageUrl)
 
     return (
@@ -185,7 +184,7 @@ const App = () => {
             />
           </li>
         </ul>
-        <button type="button" onClick={getBackToTheGame}>
+        <button type="button" data-testid="button" onClick={getBackToTheGame}>
           PLAY AGAIN
         </button>
       </>
@@ -222,7 +221,7 @@ const App = () => {
         {!isRunning ? isGameRunning() : gameIsNotRunning()}
 
         <div className="button-container">
-          <button type="button" className="rules-button">
+          <button type="button" data-testid="button" className="rules-button">
             Rules
           </button>
         </div>
